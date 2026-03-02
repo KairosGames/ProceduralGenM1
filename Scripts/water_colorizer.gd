@@ -8,6 +8,7 @@ func setup_water(ground_mi: MeshInstance3D, sea_mi: MeshInstance3D, sea_level: f
 	write_depth_vertex_colors(ground_mi, sea_mi, sea_level, max_depth)
 
 	var mat := ShaderMaterial.new()
+	mat.render_priority = 0
 	mat.shader = water_shader
 	mat.set_shader_parameter("depth_gradient", depth_gradient)
 	sea_mi.material_override = mat

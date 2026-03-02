@@ -1,13 +1,17 @@
 class_name IcosphereGenerator extends Node3D
 
 @export_category("Settings")
-@export var radius: float = 10.0
+@export var radius: float = 50.0
 @export_range(0, 8) var subdivisions: int = 7
+@export var water_level: float = radius + 0.25
+@export var clouds_level:float = radius + 2.0
 
 @export_category("References")
 @export var planetRelief: PlanetRelief
 @export var groundColorizor: GroundColorizor
 @export var waterColorizer: WaterColorizer
+@export var clouds_shader: Shader
+@export var clouds_noise: NoiseTexture2D
 
 func _ready() -> void:
 	var mi_ground := MeshInstance3D.new()
@@ -16,6 +20,7 @@ func _ready() -> void:
 	planetRelief.generateIcosphereRelief(global_position, mi_ground)
 	groundColorizor.colorize(mi_ground, radius, planetRelief.amplitude)
 	build_water(mi_ground)
+	build_clouds()
 
 func build_icosphere(r: float, subdiv: int) -> ArrayMesh:
 	subdiv = max(subdiv, 0)
@@ -104,8 +109,19 @@ func get_midpoint(a: int, b: int, vertices: PackedVector3Array, cache: Dictionar
 
 func build_water(mi_ground: MeshInstance3D):
 	var mi_sea := MeshInstance3D.new()
-	mi_sea.mesh = build_icosphere(radius, subdivisions)
-	mi_sea.scale = Vector3.ONE * ((radius + 0.05) / radius)
+	mi_sea.mesh = build_icosphere(water_level, subdivisions)
+	add_child(mi_sea)
 	waterColorizer.max_depth = planetRelief.amplitude
 	waterColorizer.setup_water(mi_ground, mi_sea, radius)
-	add_child(mi_sea)
+
+func build_clouds():
+	var mi_clouds := MeshInstance3D.new()
+	mi_clouds.mesh = build_icosphere(clouds_level, subdivisions)
+	add_child(mi_clouds)
+	var mat := ShaderMaterial.new()
+	mat.render_priority = 1
+	mat.shader = clouds_shader
+	mat.set_shader_parameter("noise_tex", clouds_noise)
+	mat.set_shader_parameter("center_world", mi_clouds.global_position)
+	mat.set_shader_parameter("planet_radius", clouds_level)
+	mi_clouds.material_override = mat

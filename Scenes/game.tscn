@@ -6,8 +6,9 @@
 [ext_resource type="Shader" uid="uid://dqtv12vng68ma" path="res://Shaders/ground_shader.gdshader" id="3_3dryh"]
 [ext_resource type="Script" uid="uid://dx1rd5ewnse2p" path="res://Scripts/planet_relief.gd" id="3_wrm1d"]
 [ext_resource type="Script" uid="uid://bo42xobfkrxie" path="res://Scripts/ground_colorizor.gd" id="4_3dryh"]
+[ext_resource type="Shader" uid="uid://c1mo8tu8dnxa5" path="res://Shaders/clouds_shader.gdshader" id="4_h4fw4"]
 [ext_resource type="Script" uid="uid://dqc5goo3hq08k" path="res://Scripts/water_colorizer.gd" id="6_i6g32"]
-[ext_resource type="Shader" uid="uid://dha6h6hovellj" path="res://Assets/water_color.gdshader" id="7_1l0tm"]
+[ext_resource type="Shader" uid="uid://dha6h6hovellj" path="res://Shaders/water_color.gdshader" id="7_1l0tm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h4fw4"]
 panorama = ExtResource("1_v158k")
@@ -24,10 +25,18 @@ glow_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_qxrlw"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h4fw4"]
+noise_type = 3
+frequency = 0.027
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ldgsr"]
+noise = SubResource("FastNoiseLite_h4fw4")
+seamless = true
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_3dryh"]
 noise_type = 3
 seed = 7
-frequency = 0.04
+frequency = 0.02
 
 [sub_resource type="Gradient" id="Gradient_wowpa"]
 offsets = PackedFloat32Array(0.5297927, 0.55051816, 0.6101036, 0.6904145)
@@ -60,7 +69,7 @@ mesh = SubResource("BoxMesh_qxrlw")
 script = ExtResource("2_qxrlw")
 
 [node name="Camera3D" type="Camera3D" parent="Rotator" unique_id=1558430756]
-transform = Transform3D(1, 0, 0, 0, 0.81297886, 0.5822933, 0, -0.5822933, 0.81297886, 0, 14.751026, 20.708143)
+transform = Transform3D(1, 0, 0, 0, 0.81297886, 0.5822933, 0, -0.5822933, 0.81297886, 0, 60.98595, 83.67161)
 
 [node name="GeneratedPlanet" type="Node3D" parent="." unique_id=1345431162]
 
@@ -69,6 +78,8 @@ script = ExtResource("2_wrm1d")
 planetRelief = NodePath("ReliefGenerator")
 groundColorizor = NodePath("GroundColorizor")
 waterColorizer = NodePath("WaterColorizer")
+clouds_shader = ExtResource("4_h4fw4")
+clouds_noise = SubResource("NoiseTexture2D_ldgsr")
 
 [node name="ReliefGenerator" type="Node3D" parent="GeneratedPlanet/ProcessSphere" unique_id=772795158]
 script = ExtResource("3_wrm1d")

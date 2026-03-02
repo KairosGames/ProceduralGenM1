@@ -1,7 +1,7 @@
 class_name PlanetRelief extends Node3D
 
 @export var noise: FastNoiseLite
-@export var amplitude: float = 4.0 
+@export var amplitude: float = 8.0 
 @export var frequency: float = 5.0 
 @export var use_world_space: bool = true
 
