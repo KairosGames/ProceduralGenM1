@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://wvpb2n043t6c"]
 
-[ext_resource type="Texture2D" uid="uid://di13imi8e45xa" path="res://Assets/NightSkyHDRI001_16K_HDR.exr" id="1_v158k"]
+[ext_resource type="Texture2D" uid="uid://52qtep3mpx0d" path="res://Assets/NightSkyHDRI001_8K_HDR.exr" id="1_v158k"]
 [ext_resource type="Script" uid="uid://rajuhwlcxoi3" path="res://Scripts/rotator.gd" id="2_qxrlw"]
 [ext_resource type="Script" uid="uid://jg7vnsslvirw" path="res://Scripts/icosphere_generator.gd" id="2_wrm1d"]
 [ext_resource type="Shader" uid="uid://dqtv12vng68ma" path="res://Shaders/ground_shader.gdshader" id="3_3dryh"]
@@ -60,7 +60,7 @@ mesh = SubResource("BoxMesh_qxrlw")
 script = ExtResource("2_qxrlw")
 
 [node name="Camera3D" type="Camera3D" parent="Rotator" unique_id=1558430756]
-transform = Transform3D(1, 0, 0, 0, 0.9821595, 0.18804997, 0, -0.18804997, 0.9821595, 0, 8.649067, 38.98789)
+transform = Transform3D(1, 0, 0, 0, 0.81297886, 0.5822933, 0, -0.5822933, 0.81297886, 0, 14.751026, 20.708143)
 
 [node name="GeneratedPlanet" type="Node3D" parent="." unique_id=1345431162]
 
