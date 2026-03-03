@@ -16,5 +16,5 @@ void fragment() {
 	d = pow(d, depth_gamma);
 	d = floor(d * steps) / steps;
 	ALBEDO = texture(depth_gradient, vec2(d, 0.5)).rgb;
-	ALPHA = 1.0;
+	ALPHA = 0.95;
 }

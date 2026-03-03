@@ -14,6 +14,7 @@ class_name IcosphereGenerator extends Node3D
 @export var clouds_noise: NoiseTexture2D
 
 func _ready() -> void:
+	#get_viewport().debug_draw = Viewport.DEBUG_DRAW_WIREFRAME
 	var mi_ground := MeshInstance3D.new()
 	mi_ground.mesh = build_icosphere(radius, subdivisions)
 	add_child(mi_ground)
